@@ -29,7 +29,6 @@ export default {
   data() {
     const items = projectenTijdlijn
     const minMonth = Math.min(...items.map(i => dateToMonths(i.start)))
-    const maxMonth = Math.max(...items.map(i => dateToMonths(i.eind)))
 
     return {
       chartData: {
