@@ -1,5 +1,5 @@
 <template>
-  <section id="over-mij" class="py-3">
+  <section id="over-mij" class="py-4">
     <div class="container-class">
       <div class="row-class">
         <h2 class="section__title">

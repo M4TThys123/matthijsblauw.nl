@@ -10,11 +10,13 @@
   "dependencies": {
     "@prismicio/helpers": "^2.3.9",
     "@prismicio/vue": "^4.0.2",
-    "bootstrap": "^5.3.1",
+    "chart.js": "^4.5.1",
     "core-js": "^3.8.3",
     "prismic-javascript": "^3.0.2",
     "typescript": "^5.1.6",
-    "vue": "^3.2.13"
+    "vue": "^3.2.13",
+    "vue-chartjs": "^5.3.3",
+    "vue-router": "^4.6.4"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
@@ -22,8 +24,11 @@
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
+    "autoprefixer": "^10.4.27",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
+    "postcss": "^8.5.8",
+    "tailwindcss": "^3.4.19",
     "vue-template-compiler": "^2.6.14"
   },
   "eslintConfig": {

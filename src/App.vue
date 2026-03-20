@@ -1,40 +1,20 @@
 <template>
   <div id="app">
     <HeaderComponent></HeaderComponent>
-
-      <AboutComponent></AboutComponent>
-
-      <TechStackComponent></TechStackComponent>
-
-      <ProjectsComponent></ProjectsComponent>
-
-      <HobbiesComponent></HobbiesComponent>
-
-      <OverMijComponent></OverMijComponent>
-
-      <FooterComponent> </FooterComponent>
+    <router-view />
+    <FooterComponent></FooterComponent>
   </div>
 </template>
 
 <script>
-import AboutComponent from "@/components/About.vue";
-import TechStackComponent from "@/components/TechStack.vue";
-import ProjectsComponent from "@/components/Projects.vue";
 import HeaderComponent from "@/components/header/Header.vue";
 import FooterComponent from "@/components/Footer.vue";
-import HobbiesComponent from "@/components/Hobbies.vue";
-import OverMijComponent from "@/components/OverMij.vue";
 
 export default {
   name: 'App',
   components: {
-    FooterComponent,
-    HobbiesComponent,
-    OverMijComponent,
     HeaderComponent,
-    ProjectsComponent,
-    TechStackComponent,
-    AboutComponent,
+    FooterComponent,
     },
 }
 </script>

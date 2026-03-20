@@ -1,14 +1,14 @@
 <template>
-  <footer class="mt-5">
-    <div class="container footer-container">
-      <nav class="row">
-        <a href="https://www.linkedin.com/in/matthijs-blauw-9a9573235/" class="col-6" target="_blank">
+  <footer class="mt-12">
+    <div class="container mx-auto px-4 footer-container">
+      <nav class="flex justify-center gap-8">
+        <a href="https://www.linkedin.com/in/matthijs-blauw-9a9573235/" class="w-1/2" target="_blank">
           <ProfileImage 
             alt-text="Image of Matthijs Blauw" 
             image-url="images/afbeelding_pak.png"
             />
         </a>
-        <a href="https://www.matthijsblauw.nl/" class="col-6" target="_blank">
+        <a href="https://www.matthijsblauw.nl/" class="w-1/2" target="_blank">
           <LogoImage alt-text="Logo of Matthijs Blauw" image-url="https://avatars.githubusercontent.com/u/70703948?v=4"></LogoImage>
         </a>
       </nav>
@@ -21,7 +21,7 @@
           <a href="https://github.com/M4TThys123/WeatherAppPlus" class="footer-link" target="_blank">GitHub Repo</a>
         </div>
 
-        <div class="flex-row mt-3">
+        <div class="flex-row mt-4">
           <a href="https://www.linkedin.com/in/matthijs-blauw-9a9573235/" class="social-icon" target="_blank">
             <i class="bx bxl-linkedin"></i>
           </a>
@@ -41,7 +41,7 @@
       </nav>
     </div>
 
-    <div class="text-center p-3 copyright mt-4">
+    <div class="text-center p-4 copyright mt-4">
       &#169; {{ currentYear }} Matthijs Blauw
     </div>
   </footer>

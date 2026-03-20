@@ -1,5 +1,5 @@
 <template>
-  <section id="projects" class="py-3">
+  <section id="projects" class="py-4">
     <div class="container-class">
       <div class="row-class">
         <h2 class="section__title">
@@ -18,8 +18,9 @@
           </button>
         </div>
 
-        <section v-if="isLoading" class="spinner-border" role="status">
-          <span class="sr-only">Loading...</span>
+        <section v-if="isLoading" class="flex justify-center" role="status">
+          <div class="animate-spin rounded-full h-8 w-8 border-4 border-blue-500 border-t-transparent"></div>
+          <span class="hidden">Loading...</span>
         </section>
 
         <ul class="project__list">

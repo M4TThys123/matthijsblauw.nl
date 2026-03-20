@@ -1,13 +1,13 @@
 <template>
-  <section id="techstack" class="py-3">
+  <section id="techstack" class="py-4">
     <div class="container-class">
       <div class="row-class">
-        <h2 class="section__title mb-4">
+        <h2 class="section__title mb-6">
           Dit is mijn
           <span class="text--blue">Tech-Stack</span>
         </h2>
 
-        <section class="technologien mb-5">
+        <section class="technologien mb-12">
           <h3 class="tech-title">Essentiële Webtechnologieën</h3>
           <section class="language__list">
             <div class="language" v-for="tech in technologien" :key="tech.id">
@@ -18,7 +18,7 @@
             </div>
           </section>
         </section>
-        <section class="tools mb-5">
+        <section class="tools mb-12">
           <h3 class="tech-title">Ontwerp- en Ontwikkeltools</h3>
           <section class="language__list">
             <div class="language" v-for="tool in tools" :key="tool.id">
@@ -29,7 +29,7 @@
             </div>
           </section>
         </section>
-        <section class="frameworks mb-5">
+        <section class="frameworks mb-12">
           <h3>Framework</h3>
           <section class="language__list">
             <div class="language" v-for="framework in frameworks" :key="framework.id">
@@ -40,7 +40,7 @@
             </div>
           </section>
         </section>
-        <section class="ai-tools mb-5">
+        <section class="ai-tools mb-12">
           <h3>AI & Automation</h3>
           <section class="language__list">
             <div class="language" v-for="aiTool in aiTools" :key="aiTool.id">
@@ -51,7 +51,7 @@
             </div>
           </section>
         </section>
-        <section class="libraries mb-5">
+        <section class="libraries mb-12">
           <h3>Libraries & Packages</h3>
           <section class="language__list">
             <div class="language" v-for="library in libraries" :key="library.id">
@@ -62,7 +62,7 @@
             </div>
           </section>
         </section>
-        <section class="platforms mb-5">
+        <section class="platforms mb-12">
           <h3>Tools en Platforms</h3>
           <section class="language__list">
             <div class="language" v-for="platform in platforms" :key="platform.id">

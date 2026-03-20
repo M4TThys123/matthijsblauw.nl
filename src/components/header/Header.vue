@@ -1,23 +1,20 @@
 <template>
   <header class="blur">
     <nav>
-      <a href="#about-me" class="logo__link" @click="closeNav">
+      <router-link to="/" class="logo__link" @click="closeNav">
         <div class="personal__logo">Matthijs Blauw</div>
-      </a>
+      </router-link>
 
       <div class="nav__menu" :class="{ 'nav__menu--open': isNavOpen }">
         <ul class="nav__link--list" :class="{ 'nav__list--open': isNavOpen }">
           <li class="nav__item">
-            <a href="#techstack" class="nav__link nav__link--anchor" @click="closeNav">Tech Stack</a>
+            <router-link to="/projecten" class="nav__link nav__link--anchor" @click="closeNav">Projecten</router-link>
           </li>
           <li class="nav__item">
-            <a href="#projects" class="nav__link nav__link--anchor" @click="closeNav">Projecten</a>
+            <router-link to="/werkervaring" class="nav__link nav__link--anchor" @click="closeNav">Werkervaring</router-link>
           </li>
           <li class="nav__item">
-            <a href="#hobbies" class="nav__link nav__link--anchor" @click="closeNav">Hobby's</a>
-          </li>
-          <li class="nav__item">
-            <a href="#over-mij" class="nav__link nav__link--anchor" @click="closeNav">Over mij</a>
+            <router-link to="/charts" class="nav__link nav__link--anchor" @click="closeNav">Charts</router-link>
           </li>
           <li class="nav__item">
             <a href="mailto:matthijs.blauw@gmail.com" class="nav__link nav__link--anchor nav__link--anchor-primary" @click="closeNav">Contact</a>
