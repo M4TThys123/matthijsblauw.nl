@@ -67,9 +67,8 @@ header {
 }
 
 .blur {
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(20px);
+  background-color: rgba(255, 255, 255, 0.85);
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
 }
 
