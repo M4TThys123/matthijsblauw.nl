@@ -239,8 +239,8 @@ li {
   }
 
   .project__description {
-    left: 30px;
-    padding-right: 30px;
+    left: 16px;
+    padding-right: 16px;
   }
 }
 

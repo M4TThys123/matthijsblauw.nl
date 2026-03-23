@@ -775,7 +775,7 @@ export default {
   }
 
   .detail__slider-img {
-    height: 300px;
+    height: clamp(200px, 40vw, 300px);
   }
 
   .detail__slider-btn {

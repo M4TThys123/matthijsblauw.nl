@@ -5,7 +5,7 @@
         <a href="https://www.linkedin.com/in/matthijs-blauw-9a9573235/" class="w-1/2" target="_blank">
           <ProfileImage 
             alt-text="Image of Matthijs Blauw" 
-            image-url="images/afbeelding_pak.png"
+            image-url="/images/afbeelding_pak.png"
             />
         </a>
         <a href="https://www.matthijsblauw.nl/" class="w-1/2" target="_blank">
@@ -88,8 +88,13 @@ footer {
 
 .social-icon {
   color: white;
-  font-size: 35px;
-  padding: 0 16px;
+  font-size: 28px;
+  padding: 8px 12px;
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .copyright {

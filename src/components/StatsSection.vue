@@ -171,7 +171,7 @@ export default {
 }
 
 .stats-section__number {
-  font-size: 3rem;
+  font-size: clamp(1.6rem, 5vw, 3rem);
   font-weight: 900;
   color: var(--color-blue);
   line-height: 1.1;

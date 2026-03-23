@@ -93,7 +93,7 @@ export default {
   gap: 8px;
   white-space: nowrap;
   font-family: 'Lato', sans-serif;
-  font-size: 1.05rem;
+  font-size: clamp(0.75rem, 2.5vw, 1.05rem);
   font-weight: 700;
   color: var(--color-text);
   letter-spacing: 0.02em;

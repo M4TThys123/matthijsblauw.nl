@@ -57,9 +57,10 @@ export default {
   mounted() {
     this.$nextTick(() => {
       const blocks = this.$el.querySelectorAll(".over-mij__block");
+      const distance = window.innerWidth < 480 ? 25 : 50;
       blocks.forEach((block, i) => {
         gsap.from(block, {
-          x: i % 2 === 0 ? -50 : 50,
+          x: i % 2 === 0 ? -distance : distance,
           opacity: 0,
           duration: 0.8,
           ease: "power2.out",

@@ -278,4 +278,25 @@ export default {
     height: 18px;
   }
 }
+
+@media (max-width: 375px) {
+  .ts__card {
+    padding: 16px;
+  }
+
+  .ts__pills {
+    gap: 6px;
+  }
+
+  .ts__pill {
+    font-size: 12px;
+    padding: 4px 10px;
+    gap: 6px;
+  }
+
+  .ts__pill-icon {
+    width: 16px;
+    height: 16px;
+  }
+}
 </style>

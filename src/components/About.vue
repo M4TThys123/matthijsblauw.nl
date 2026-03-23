@@ -12,7 +12,7 @@
           </figure>
 
           <figure class="about-me__picture--mask">
-            <img class="about-me__picture" src="images/afbeelding_pak.png"
+            <img class="about-me__picture" src="/images/afbeelding_pak.png"
               alt="Second profile image" />
           </figure>
         </div>
@@ -41,7 +41,7 @@
           </div>
         </div>
         <figure class="about-me__img--container">
-          <img src="images/undraw_websites_%2314539A.svg" alt="Undraw website image" class="about-me__img" />
+          <img src="/images/undraw_websites.svg" alt="Undraw website image" class="about-me__img" />
         </figure>
       </div>
     </div>
@@ -118,23 +118,16 @@ export default {
 
 .about-me__pictures {
   display: flex;
-  gap: 20px; /* ruimte tussen de twee foto's */
-  justify-content: center; /* optioneel: centreert de foto's */
-  align-items: center; /* optioneel: centreert verticaal */
+  gap: clamp(12px, 3vw, 20px);
+  justify-content: center;
+  align-items: center;
 }
 
 .about-me__picture--mask {
   overflow: hidden;
-  width: 150px;
-  height: 150px;
+  width: clamp(100px, 20vw, 150px);
+  height: clamp(100px, 20vw, 150px);
   flex-shrink: 0;
-}
-
-@media (max-width: 300px) {
-  .about-me__picture--mask {
-    width: 100px;
-    height: 100px;
-  }
 }
 
 @media (min-width: 640px) {

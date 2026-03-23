@@ -236,9 +236,9 @@ nav {
   }
 
   .nav__link--anchor {
-    font-size: 28px;
+    font-size: clamp(20px, 5vw, 28px);
     font-weight: 700;
-    padding: 16px 24px;
+    padding: 14px 20px;
     color: var(--color-text);
   }
 
