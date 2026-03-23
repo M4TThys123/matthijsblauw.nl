@@ -19,7 +19,7 @@
           <h1 class="about-me__picture--title">
             <strong>Matthijs Blauw</strong>
             <br />
-            <span class="text--blue">Fullstack Developer & Digital Designer</span>
+            <span class="text--blue">Fullstack Developer, Digital Designer & AI Engineer</span>
             <span class="wave" aria-hidden="true">👋🏻</span>
           </h1>
           <p class="about-me__info--para">
@@ -163,7 +163,7 @@ export default {
 
 .about-me__link {
   font-size: 35px;
-  color: #242424;
+  color: var(--color-text);
   padding: 0 16px;
 }
 

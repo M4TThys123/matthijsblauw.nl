@@ -68,7 +68,7 @@ export default {
 <style scoped>
 /* FOOTER */
 footer {
-  background-color: #14151A;
+  background-color: var(--color-footer-bg);
   color: white;
   padding-top: 2em;
 }
@@ -93,7 +93,7 @@ footer {
 }
 
 .copyright {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: var(--color-footer-copyright);
   padding: 0.5em;
 }
 </style>

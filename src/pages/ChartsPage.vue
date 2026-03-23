@@ -1,8 +1,8 @@
 <template>
   <div class="container-class" style="margin-top: 100px;">
     <div class="row-class">
-      <h1 class="section__title">Interactieve <span class="text--blue">Charts</span></h1>
-      <p style="text-align: center; margin-bottom: 40px; color: #666;">
+      <h1 class="section__title">Interactieve <span class="text--blue">Statistieken</span></h1>
+      <p style="text-align: center; margin-bottom: 40px; color: var(--color-text-muted);">
         Data visualisaties over mijn carrière, skills en projecten — gebouwd met Chart.js.
       </p>
     </div>
@@ -72,16 +72,16 @@ export default {
 }
 
 .chart-card {
-  background: #fff;
+  background: var(--color-surface);
   border-radius: 16px;
   padding: 24px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 16px var(--color-card-shadow);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .chart-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 8px 24px var(--color-card-shadow-hover);
 }
 
 .chart-card--wide {
