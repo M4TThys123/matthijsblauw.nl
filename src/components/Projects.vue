@@ -25,11 +25,10 @@
 
         <ul class="project__list">
           <li class="project" v-for="project in filteredProjects" :key="project.data.id">
-            <a
+            <div
               class="project__wrapper"
-              :href="project.data.website_link || project.data.github_link"
-              target="_blank"
-              rel="noopener noreferrer"
+              @click="goToProject(project.id)"
+              style="cursor: pointer;"
             >
               <PrismicImage :field="project.data.project_image" class="project__img" alt="project image"/>
 
@@ -79,7 +78,7 @@
                   </noscript>
                 </div>
               </div>
-            </a>
+            </div>
           </li>
         </ul>
       </div>
@@ -153,6 +152,9 @@ export default {
     setFilter(value) {
       this.activeFilter = value;
     },
+    goToProject(id) {
+      this.$router.push({ name: 'ProjectDetail', params: { id } });
+    },
     async fetchProjects() {
       try {
         const apiEndpoint = 'https://portfolio-matthijs.cdn.prismic.io/api/v2';
@@ -166,6 +168,17 @@ export default {
 
         this.projects = sortedProjects;
         this.isLoading = false;
+
+        // DEBUG: log Prismic data structure — verwijder na review
+        console.log('=== PRISMIC PROJECT DATA ===');
+        console.log('Aantal projecten:', sortedProjects.length);
+        sortedProjects.forEach((p, i) => {
+          console.log(`\n--- Project ${i + 1}: ${p.data.project_title?.[0]?.text || 'no title'} ---`);
+          console.log('ID:', p.id);
+          console.log('Type:', p.type);
+          console.log('Alle data keys:', Object.keys(p.data));
+          console.log('Volledige data:', JSON.parse(JSON.stringify(p.data)));
+        });
       } catch (error) {
         console.error('Error fetching data from Prismic:', error);
       }
@@ -197,7 +210,7 @@ export default {
   left: 0;
   height: 100%;
   width: 100%;
-  background-color: #1c1d25;
+  background-color: var(--color-project-overlay);
   opacity: 0;
   transition: opacity 450ms ease;
   z-index: 2;
@@ -305,10 +318,10 @@ h3{
 
 .filter__btn {
   padding: 8px 16px;
-  border: 2px solid #14539A;
+  border: 2px solid var(--color-blue);
   border-radius: 25px;
   background: transparent;
-  color: #14539A;
+  color: var(--color-blue);
   font-size: 14px;
   cursor: pointer;
   transition: all 300ms ease;
@@ -316,12 +329,12 @@ h3{
 }
 
 .filter__btn:hover {
-  background: #14539A;
+  background: var(--color-blue);
   color: #fff;
 }
 
 .filter__btn--active {
-  background: #14539A;
+  background: var(--color-blue);
   color: #fff;
 }
 
