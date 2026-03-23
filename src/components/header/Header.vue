@@ -14,25 +14,33 @@
             <router-link to="/werkervaring" class="nav__link nav__link--anchor" @click="closeNav">Werkervaring</router-link>
           </li>
           <li class="nav__item">
-            <router-link to="/charts" class="nav__link nav__link--anchor" @click="closeNav">Charts</router-link>
+            <router-link to="/charts" class="nav__link nav__link--anchor" @click="closeNav">Statistieken</router-link>
           </li>
           <li class="nav__item">
-            <a href="mailto:matthijs.blauw@gmail.com" class="nav__link nav__link--anchor nav__link--anchor-primary" @click="closeNav">Contact</a>
+            <router-link to="/blog" class="nav__link nav__link--anchor" @click="closeNav">Blog</router-link>
+          </li>
+          <li class="nav__item">
+            <router-link to="/contact" class="nav__link nav__link--anchor nav__link--anchor-primary" @click="closeNav">Contact</router-link>
           </li>
         </ul>
       </div>
 
-      <HamburgerMenu @click="toggleNav" :is-nav-open="isNavOpen" class="menu__trigger"></HamburgerMenu>
+      <div class="nav__actions">
+        <ThemeToggle />
+        <HamburgerMenu @click="toggleNav" :is-nav-open="isNavOpen" class="menu__trigger"></HamburgerMenu>
+      </div>
     </nav>
   </header>
 </template>
 
 <script>
 import HamburgerMenu from "@/components/header/HamburgerMenu.vue";
+import ThemeToggle from "@/components/header/ThemeToggle.vue";
 export default {
   name: "HeaderComponent",
   components: {
-    HamburgerMenu
+    HamburgerMenu,
+    ThemeToggle,
   },
   data() {
     return {
@@ -70,8 +78,8 @@ header {
   filter: none;
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  background-color: rgba(255, 255, 255, 0.85);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  background-color: var(--color-header-bg);
+  border-bottom: 1px solid var(--color-border);
 }
 
 nav {
@@ -109,7 +117,7 @@ nav {
 }
 
 .nav__link--anchor {
-  color: #444;
+  color: var(--color-nav-link);
   text-decoration: none;
   font-weight: 600;
   font-size: 14px;
@@ -119,12 +127,31 @@ nav {
 }
 
 .nav__link--anchor:hover {
-  color: #14539A;
-  background-color: rgba(20, 83, 154, 0.06);
+  color: var(--color-blue);
+  background-color: var(--color-hover);
+}
+
+/* Active route indicator */
+.nav__link--anchor.router-link-active:not(.nav__link--anchor-primary) {
+  color: var(--color-blue);
+  background-color: var(--color-hover);
+  position: relative;
+}
+
+.nav__link--anchor.router-link-active:not(.nav__link--anchor-primary)::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 3px;
+  background: var(--color-blue);
+  border-radius: 2px;
 }
 
 .nav__link--anchor-primary {
-  background-color: #14539A;
+  background-color: var(--color-blue);
   color: #fff;
   padding: 10px 22px;
   border-radius: 50px;
@@ -132,8 +159,15 @@ nav {
 }
 
 .nav__link--anchor-primary:hover {
-  background-color: #0e3f7a;
+  background-color: var(--color-blue-hover);
   color: #fff;
+}
+
+.nav__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 1001;
 }
 
 .menu__trigger {
@@ -156,7 +190,7 @@ nav {
     bottom: 0;
     height: 100vh;
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.98);
+    background-color: var(--color-overlay-bg);
     backdrop-filter: blur(20px);
     flex-direction: column;
     justify-content: center;
@@ -205,12 +239,19 @@ nav {
     font-size: 28px;
     font-weight: 700;
     padding: 16px 24px;
-    color: #242424;
+    color: var(--color-text);
   }
 
-  .nav__link--anchor:hover {
-    color: #14539A;
+  .nav__link--anchor:hover,
+  .nav__link--anchor.router-link-active:not(.nav__link--anchor-primary) {
+    color: var(--color-blue);
     background-color: transparent;
+  }
+
+  .nav__link--anchor.router-link-active:not(.nav__link--anchor-primary)::after {
+    bottom: 4px;
+    width: 30px;
+    height: 3px;
   }
 
   .nav__link--anchor-primary {

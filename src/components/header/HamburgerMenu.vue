@@ -54,7 +54,7 @@ button{
   position: absolute;
   height: 5px;
   width: 100%;
-  background: #1a1919;
+  background: var(--color-hamburger);
   border-radius: 4px;
   opacity: 1;
   left: 0;
