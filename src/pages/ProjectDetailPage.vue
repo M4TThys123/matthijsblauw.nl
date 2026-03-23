@@ -250,9 +250,10 @@ export default {
               if (title.includes(keyword)) { color = c; break; }
             }
           }
+          const name = p.data.project_title?.[0]?.text || 'Untitled';
           return {
-            id: p.id,
-            name: p.data.project_title?.[0]?.text || 'Untitled',
+            id: p.uid || this.toSlug(name) || p.id,
+            name,
             subtitle: p.data.sub_title?.[0]?.text || '',
             image: p.data.project_image?.url || '',
             color: color || '#14539A',
@@ -283,6 +284,12 @@ export default {
   },
   methods: {
     asHTML,
+    toSlug(text) {
+      return text
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-|-$/g, '');
+    },
     prevSlide() {
       this.activeSlide = this.activeSlide > 0
         ? this.activeSlide - 1
@@ -295,20 +302,25 @@ export default {
     },
     async fetchProject() {
       try {
-        const projectId = this.$route.params.id;
+        const slug = this.$route.params.slug;
         const apiEndpoint =
           "https://portfolio-matthijs.cdn.prismic.io/api/v2";
         const api = await Prismic.api(apiEndpoint);
 
-        // Haal dit project + alle projecten op (voor switcher)
-        const [doc, allResponse] = await Promise.all([
-          api.getByID(projectId),
-          api.query(Prismic.Predicates.at('document.type', 'projects'), {
-            orderings: '[document.last_publication_date desc]',
-          }),
-        ]);
+        // Haal alle projecten op en zoek op uid of title-slug
+        const allResponse = await api.query(
+          Prismic.Predicates.at('document.type', 'projects'),
+          { orderings: '[document.last_publication_date desc]' }
+        );
 
-        if (doc && doc.type === "projects") {
+        // Zoek project op uid (Prismic slug) of gegenereerde slug van titel
+        const doc = allResponse.results.find(p =>
+          p.uid === slug ||
+          this.toSlug(p.data.project_title?.[0]?.text || '') === slug ||
+          p.id === slug
+        );
+
+        if (doc) {
           this.project = doc;
         } else {
           this.project = null;

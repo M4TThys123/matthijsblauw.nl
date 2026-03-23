@@ -27,7 +27,7 @@
           <li class="project" v-for="project in filteredProjects" :key="project.data.id">
             <div
               class="project__wrapper"
-              @click="goToProject(project.id)"
+              @click="goToProject(project)"
               style="cursor: pointer;"
             >
               <PrismicImage :field="project.data.project_image" class="project__img" alt="project image"/>
@@ -152,8 +152,12 @@ export default {
     setFilter(value) {
       this.activeFilter = value;
     },
-    goToProject(id) {
-      this.$router.push({ name: 'ProjectDetail', params: { id } });
+    toSlug(text) {
+      return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    },
+    goToProject(project) {
+      const slug = project.uid || this.toSlug(project.data.project_title?.[0]?.text || '') || project.id;
+      this.$router.push({ name: 'ProjectDetail', params: { slug } });
     },
     async fetchProjects() {
       try {

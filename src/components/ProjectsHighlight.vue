@@ -129,6 +129,9 @@ export default {
   },
 
   methods: {
+    toSlug(text) {
+      return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    },
     getHighResImage(url) {
       if (!url) return '';
       // Vervang de Prismic resize params voor hogere resolutie (1550x1000, 2x van 775x500)
@@ -142,14 +145,18 @@ export default {
           { pageSize: 6, orderings: '[document.last_publication_date desc]' }
         );
 
-        this.projects = (response.results || []).map(project => ({
-          id: project.id,
-          name: project.data.project_title?.[0]?.text || 'Untitled',
-          description: project.data.project_paragraph?.[0]?.text || '',
-          tech: (project.data.sub_title?.[0]?.text || '').split(/[,·|]/).map(t => t.trim()).filter(Boolean),
-          image: this.getHighResImage(project.data.project_image?.url || ''),
-          link: `/projecten/${project.id}`,
-        }));
+        this.projects = (response.results || []).map(project => {
+          const name = project.data.project_title?.[0]?.text || 'Untitled';
+          const slug = project.uid || this.toSlug(name) || project.id;
+          return {
+            id: project.id,
+            name,
+            description: project.data.project_paragraph?.[0]?.text || '',
+            tech: (project.data.sub_title?.[0]?.text || '').split(/[,·|]/).map(t => t.trim()).filter(Boolean),
+            image: this.getHighResImage(project.data.project_image?.url || ''),
+            link: `/projecten/${slug}`,
+          };
+        });
       } catch (e) {
         this.projects = [];
       }
