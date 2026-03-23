@@ -2,7 +2,7 @@
   <div class="container-class" style="margin-top: 100px;">
     <div class="row-class">
       <h1 class="section__title">Mijn <span class="text--blue">Werkervaring</span></h1>
-      <p style="text-align: center; margin-bottom: 40px; color: #666;">
+      <p style="text-align: center; margin-bottom: 40px; color: var(--color-text-muted);">
         Van junior frontend naar medior fullstack + AI developer.
       </p>
     </div>
@@ -39,6 +39,11 @@
             <span class="we-tag">653 commits</span>
             <span class="we-tag">150+ branches</span>
             <span class="we-tag">20+ klanten</span>
+          </div>
+
+          <div class="chart-card" style="margin-top: 20px;">
+            <h3 style="color: var(--color-text); text-align: left; font-size: 16px; margin-bottom: 12px;">Projecten bij Bulbmanager</h3>
+            <ProjectenGanttChart />
           </div>
         </div>
 
@@ -83,14 +88,119 @@
         </div>
       </section>
 
-      <!-- Charts -->
+      <!-- Opleiding -->
       <section class="we-section">
-        <h2 class="we-title">Projecten bij Bulbmanager</h2>
-        <div class="chart-card">
-          <ProjectenGanttChart />
+        <h2 class="we-title">Opleiding</h2>
+
+        <div class="we-item">
+          <div class="we-item__header">
+            <h3>Frontend Design & Development</h3>
+            <span class="we-item__period">2021 — 2023</span>
+          </div>
+          <p class="we-item__description">Hogeschool van Amsterdam</p>
+          <div class="we-item__highlights">
+            <span class="we-tag">Vue.js</span>
+            <span class="we-tag">SvelteKit</span>
+            <span class="we-tag">JavaScript</span>
+            <span class="we-tag">UX Design</span>
+          </div>
+        </div>
+
+        <div class="we-item">
+          <div class="we-item__header">
+            <h3>Communicatie & Multimedia Design</h3>
+            <span class="we-item__period">2019 — 2021</span>
+          </div>
+          <p class="we-item__description">Hogeschool van Amsterdam — Frontend, backend en JavaScript vakken</p>
+          <div class="we-item__highlights">
+            <span class="we-tag">JavaScript</span>
+            <span class="we-tag">HTML/CSS</span>
+            <span class="we-tag">UI/UX Design</span>
+            <span class="we-tag">Figma</span>
+            <span class="we-tag">Adobe XD</span>
+            <span class="we-tag">Backend</span>
+          </div>
+        </div>
+
+        <div class="we-item">
+          <div class="we-item__header">
+            <h3>Havo — Wiskunde B & Informatica</h3>
+            <span class="we-item__period">2017 — 2019</span>
+          </div>
+          <p class="we-item__description">Trinitas College, Heerhugowaard</p>
         </div>
       </section>
 
+      <!-- Cursussen -->
+      <section class="we-section">
+        <h2 class="we-title">Cursussen & Certificaten</h2>
+
+        <div class="we-item">
+          <div class="we-item__header">
+            <h3>Vue Mastery</h3>
+            <span class="we-item__period">Jan 2023 — 2024</span>
+          </div>
+          <p class="we-item__description">Vue.js verdieping — componenten, composables, best practices</p>
+          <div class="we-item__highlights">
+            <span class="we-tag">Vue.js</span>
+            <span class="we-tag">Composition API</span>
+          </div>
+        </div>
+
+        <div class="we-item">
+          <div class="we-item__header">
+            <h3>Frontend Simplified Bootcamp</h3>
+            <span class="we-item__period">2022 — 2024</span>
+          </div>
+          <p class="we-item__description">Intensieve bootcamp — React, JavaScript, portfolio development</p>
+          <div class="we-item__highlights">
+            <span class="we-tag">React</span>
+            <span class="we-tag">JavaScript</span>
+            <span class="we-tag">Portfolio</span>
+          </div>
+        </div>
+
+        <div class="we-item">
+          <div class="we-item__header">
+            <h3>Codecademy</h3>
+            <span class="we-item__period">Okt 2023 — 2024</span>
+          </div>
+          <p class="we-item__description">Diverse programmeer-cursussen — Python, SQL, TypeScript</p>
+          <div class="we-item__highlights">
+            <span class="we-tag">Python</span>
+            <span class="we-tag">SQL</span>
+            <span class="we-tag">TypeScript</span>
+          </div>
+        </div>
+
+        <div class="we-item">
+          <div class="we-item__header">
+            <h3>Microsoft Learn & Udemy</h3>
+            <span class="we-item__period">2024</span>
+          </div>
+          <p class="we-item__description">C# / .NET cursussen voor de Heftruck App bij Bulbmanager</p>
+          <div class="we-item__highlights">
+            <span class="we-tag">C#</span>
+            <span class="we-tag">.NET</span>
+            <span class="we-tag">WPF</span>
+          </div>
+        </div>
+
+        <div class="we-item">
+          <div class="we-item__header">
+            <h3>Laravel Laracasts — 30 Days</h3>
+            <span class="we-item__period">2024</span>
+          </div>
+          <p class="we-item__description">Laravel fundamentals en Eloquent ORM</p>
+          <div class="we-item__highlights">
+            <span class="we-tag">Laravel</span>
+            <span class="we-tag">PHP</span>
+            <span class="we-tag">Eloquent</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Charts -->
       <section class="we-section">
         <h2 class="we-title">Commits per Maand</h2>
         <div class="chart-card">
@@ -138,18 +248,18 @@ export default {
 
 .we-title {
   font-size: 28px;
-  color: #14539A;
+  color: var(--color-blue);
   margin-bottom: 20px;
   text-align: left;
 }
 
 .we-item {
-  background: #fff;
+  background: var(--color-surface);
   border-radius: 12px;
   padding: 24px;
   margin-bottom: 16px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  border-left: 4px solid #14539A;
+  box-shadow: 0 2px 8px var(--color-card-shadow);
+  border-left: 4px solid var(--color-blue);
 }
 
 .we-item__header {
@@ -163,19 +273,19 @@ export default {
 
 .we-item__header h3 {
   font-size: 18px;
-  color: #242424;
+  color: var(--color-text);
   text-align: left;
 }
 
 .we-item__period {
   font-size: 14px;
-  color: #888;
+  color: var(--color-text-muted);
   white-space: nowrap;
 }
 
 .we-item__description {
   font-size: 15px;
-  color: #555;
+  color: var(--color-text-secondary);
   line-height: 1.6;
   margin-bottom: 12px;
   text-align: left;
@@ -190,17 +300,17 @@ export default {
 .we-tag {
   font-size: 12px;
   padding: 4px 10px;
-  background: rgba(20, 83, 154, 0.08);
-  color: #14539A;
+  background: var(--color-hover);
+  color: var(--color-blue);
   border-radius: 20px;
   font-weight: 600;
 }
 
 .chart-card {
-  background: #fff;
+  background: var(--color-surface);
   border-radius: 16px;
   padding: 24px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 16px var(--color-card-shadow);
 }
 
 @media (max-width: 768px) {
