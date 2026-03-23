@@ -1,40 +1,26 @@
 <template>
   <section class="projects-highlight" ref="sectionRef">
-    <!-- Section header -->
-    <div class="projects-highlight__header">
-      <div class="projects-highlight__header-inner">
-        <h2 class="section__title">
-          Uitgelichte <span class="text--blue">projecten</span>
-        </h2>
-        <router-link to="/projecten" class="projects-highlight__link">
-          Bekijk alle projecten
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <line x1="5" y1="12" x2="19" y2="12" />
-            <polyline points="12 5 19 12 12 19" />
-          </svg>
-        </router-link>
-      </div>
-    </div>
-
     <!-- Loading -->
     <div v-if="isLoading" class="projects-highlight__loading">
       <span class="projects-highlight__spinner"></span>
       Projecten laden...
     </div>
 
-    <!-- Horizontal scroll area (desktop) -->
+    <!-- Horizontal scroll area (desktop) — titel zit IN de sticky view -->
     <div v-if="projects.length" class="projects-highlight__sticky" ref="stickyRef">
-      <div class="projects-highlight__track" ref="trackRef">
+      <div class="projects-highlight__sticky-inner">
+        <!-- Header inside sticky -->
+        <div class="projects-highlight__header">
+          <h2 class="section__title" style="margin-bottom: 0;">
+            Uitgelichte <span class="text--blue">projecten</span>
+          </h2>
+          <router-link to="/projecten" class="projects-highlight__link">
+            Bekijk alle projecten
+            <i class="bx bx-right-arrow-alt"></i>
+          </router-link>
+        </div>
+
+        <div class="projects-highlight__track" ref="trackRef">
         <div
           class="project-card"
           v-for="(project, index) in projects"
@@ -63,7 +49,19 @@
             </div>
           </router-link>
         </div>
+        </div>
       </div>
+    </div>
+
+    <!-- Mobile header (buiten sticky) -->
+    <div v-if="projects.length" class="projects-highlight__mobile-header">
+      <h2 class="section__title" style="margin-bottom: 0;">
+        Uitgelichte <span class="text--blue">projecten</span>
+      </h2>
+      <router-link to="/projecten" class="projects-highlight__link">
+        Bekijk alle projecten
+        <i class="bx bx-right-arrow-alt"></i>
+      </router-link>
     </div>
 
     <!-- Mobile: vertical stack -->
@@ -223,24 +221,24 @@ export default {
   overflow: hidden;
 }
 
-/* Header */
+/* Header (inside sticky) */
 .projects-highlight__header {
-  padding: 30px 0 20px;
-}
-
-.projects-highlight__header-inner {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 0 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 12px;
+  padding: 0 64px 16px;
 }
 
-.projects-highlight__header .section__title {
-  margin-bottom: 0;
+/* Mobile header (outside sticky) */
+.projects-highlight__mobile-header {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 30px 16px 16px;
+  text-align: center;
 }
 
 .projects-highlight__link {
@@ -294,8 +292,15 @@ export default {
 .projects-highlight__sticky {
   display: none;
   height: 100vh;
-  align-items: center;
   overflow: hidden;
+}
+
+.projects-highlight__sticky-inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding: 20px 0;
 }
 
 .projects-highlight__track {
@@ -445,11 +450,25 @@ export default {
 /* Responsive */
 @media (min-width: 768px) {
   .projects-highlight__sticky {
-    display: flex;
+    display: block;
   }
 
   .projects-highlight__mobile {
     display: none;
+  }
+
+  .projects-highlight__mobile-header {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .projects-highlight__header {
+    display: none;
+  }
+
+  .projects-highlight__mobile-header {
+    display: flex;
   }
 }
 
@@ -463,14 +482,13 @@ export default {
     gap: 40px;
     padding: 0 80px;
   }
+
+  .projects-highlight__header {
+    padding: 0 80px 20px;
+  }
 }
 
 @media (max-width: 480px) {
-  .projects-highlight__header-inner {
-    flex-direction: column;
-    text-align: center;
-  }
-
   .project-card--mobile {
     height: 220px;
   }
