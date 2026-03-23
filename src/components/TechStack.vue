@@ -7,333 +7,275 @@
           <span class="text--blue">Tech-Stack</span>
         </h2>
 
-        <section class="technologien mb-12">
-          <h3 class="tech-title">Essentiële Webtechnologieën</h3>
-          <section class="language__list">
-            <div class="language" v-for="tech in technologien" :key="tech.id">
-              <figure class="language__img--wrapper">
-                <img :src="`/images/icons/${tech.url}`" alt="" class="language__img">
-              </figure>
-              <span class="language__name">{{ tech.name }}</span>
+        <div class="ts__grid" ref="tsGrid">
+          <div
+            class="ts__card"
+            v-for="(cat, i) in categories"
+            :key="i"
+            :class="{ 'ts__card--wide': cat.wide }"
+          >
+            <span class="ts__card-label">{{ cat.label }}</span>
+            <div class="ts__pills">
+              <div
+                class="ts__pill"
+                v-for="skill in cat.skills"
+                :key="skill.name"
+              >
+                <img
+                  v-if="skill.icon"
+                  :src="`/images/icons/${skill.icon}`"
+                  :alt="skill.name"
+                  class="ts__pill-icon"
+                />
+                <span class="ts__pill-name">{{ skill.name }}</span>
+              </div>
             </div>
-          </section>
-        </section>
-        <section class="tools mb-12">
-          <h3 class="tech-title">Ontwerp- en Ontwikkeltools</h3>
-          <section class="language__list">
-            <div class="language" v-for="tool in tools" :key="tool.id">
-              <figure class="language__img--wrapper">
-                <img :src="`/images/icons/${tool.url}`" alt="" class="language__img">
-              </figure>
-              <span class="language__name">{{ tool.name }}</span>
-            </div>
-          </section>
-        </section>
-        <section class="frameworks mb-12">
-          <h3>Framework</h3>
-          <section class="language__list">
-            <div class="language" v-for="framework in frameworks" :key="framework.id">
-              <figure class="language__img--wrapper">
-                <img :src="`/images/icons/${framework.url}`" alt="" class="language__img">
-              </figure>
-              <span class="language__name">{{ framework.name }}</span>
-            </div>
-          </section>
-        </section>
-        <section class="ai-tools mb-12">
-          <h3>AI & Automation</h3>
-          <section class="language__list">
-            <div class="language" v-for="aiTool in aiTools" :key="aiTool.id">
-              <figure class="language__img--wrapper">
-                <img :src="`/images/icons/${aiTool.url}`" alt="" class="language__img">
-              </figure>
-              <span class="language__name">{{ aiTool.name }}</span>
-            </div>
-          </section>
-        </section>
-        <section class="libraries mb-12">
-          <h3>Libraries & Packages</h3>
-          <section class="language__list">
-            <div class="language" v-for="library in libraries" :key="library.id">
-              <figure class="language__img--wrapper">
-                <img :src="`/images/icons/${library.url}`" alt="" class="language__img">
-              </figure>
-              <span class="language__name">{{ library.name }}</span>
-            </div>
-          </section>
-        </section>
-        <section class="platforms mb-12">
-          <h3>Tools en Platforms</h3>
-          <section class="language__list">
-            <div class="language" v-for="platform in platforms" :key="platform.id">
-              <figure class="language__img--wrapper">
-                <img :src="`/images/icons/${platform.url}`" alt="" class="language__img">
-              </figure>
-              <span class="language__name">{{ platform.name }}</span>
-            </div>
-          </section>
-        </section>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 </template>
 
 <script>
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
 export default {
   name: "TechStackComponent",
   data() {
     return {
-      technologien: [
+      categories: [
         {
-          id: 1,
-          name: "HTML",
-          url: "HTML5.webp"
+          label: "Talen & Markup",
+          skills: [
+            { name: "HTML", icon: "HTML5.webp" },
+            { name: "CSS", icon: "CSS.webp" },
+            { name: "JavaScript", icon: "JavaScript.webp" },
+            { name: "TypeScript", icon: "TypeScript.webp" },
+            { name: "PHP", icon: "PHP.webp" },
+            { name: "Python", icon: "Python.webp" },
+            { name: "C#", icon: "CS.webp" },
+            { name: "SQL", icon: "SQL.webp" },
+            { name: "GraphQL", icon: null },
+            { name: "REST APIs", icon: null },
+          ],
         },
         {
-          id: 2,
-          name: "CSS",
-          url: "CSS.webp"
+          label: "Frontend",
+          skills: [
+            { name: "Vue.js", icon: "Vue.webp" },
+            { name: "React", icon: "React.webp" },
+            { name: "SvelteKit", icon: "Svelte.webp" },
+            { name: "Tailwind", icon: null },
+            { name: "Vuetify", icon: "Vuetify.svg" },
+            { name: "Bootstrap", icon: "Bootstrap.svg" },
+            { name: "Three.js", icon: "Threejs.svg" },
+            { name: "GSAP", icon: "GSAP.svg" },
+            { name: "Chart.js", icon: null },
+          ],
         },
         {
-          id: 3,
-          name: "JavaScript",
-          url: "JavaScript.webp"
+          label: "Backend & Data",
+          skills: [
+            { name: "Laravel", icon: "Laravel.webp" },
+            { name: ".NET", icon: "Net.webp" },
+            { name: "MySQL", icon: "Workbench.webp" },
+            { name: "Supabase", icon: "Supabase.svg" },
+            { name: "Ionic", icon: "Ionic.svg" },
+            { name: "WebSocket", icon: null },
+          ],
         },
         {
-          id: 4,
-          name: "TypeScript",
-          url: "TypeScript.webp"
+          label: "AI & Automation",
+          skills: [
+            { name: "n8n", icon: "n8n.svg" },
+            { name: "Ollama", icon: "Ollama.svg" },
+            { name: "Claude", icon: "Claude.svg" },
+            { name: "ChatGPT", icon: "ChatGPT.svg" },
+            { name: "LangChain", icon: null },
+          ],
         },
         {
-          id: 5,
-          name: "C#",
-          url: "CS.webp"
+          label: "Design",
+          skills: [
+            { name: "Figma", icon: "Figma.svg" },
+            { name: "Adobe XD", icon: "Adobe_XD.webp" },
+            { name: "Illustrator", icon: "Adobe_Illustrator.webp" },
+            { name: "Photoshop", icon: "Adobe_Photoshop.webp" },
+          ],
         },
         {
-          id: 6,
-          name: "SQL",
-          url: "SQL.webp"
+          label: "DevOps & Tools",
+          skills: [
+            { name: "Git", icon: null },
+            { name: "GitHub", icon: "GitHub.svg" },
+            { name: "Docker", icon: "Docker.webp" },
+            { name: "Vercel", icon: "Vercel.svg" },
+            { name: "WebStorm", icon: "Webstorm.webp" },
+            { name: "Mattermost", icon: null },
+          ],
         },
         {
-          id: 7,
-          name: "PHP",
-          url: "PHP.webp"
-        },
-        {
-          id: 8,
-          name: "Python",
-          url: "Python.webp"
-        },
-      ],
-      tools: [
-        {
-          id: 1,
-          name: "Adobe XD",
-          url: "Adobe_XD.webp"
-        },
-        {
-          id: 2,
-          name: "Adobe Illustrator",
-          url: "Adobe_Illustrator.webp"
-        },
-        {
-          id: 3,
-          name: "Adobe Photoshop",
-          url: "Adobe_Photoshop.webp"
-        },
-        {
-          id: 4,
-          name: "Webstorm",
-          url: "Webstorm.webp"
-        },
-        {
-          id: 5,
-          name: "MySQL Workbench",
-          url: "Workbench.webp"
-        },
-        {
-          id: 6,
-          name: "Docker Container",
-          url: "Docker.webp"
-        },
-        {
-          id: 7,
-          name: "Figma",
-          url: "Figma.svg"
-        },
-      ],
-      frameworks: [
-        {
-          id: 1,
-          name: "Svelte",
-          url: "Svelte.webp"
-        },
-        {
-          id: 2,
-          name: "React",
-          url: "React.webp"
-        },
-        {
-          id: 3,
-          name: "Vue.js",
-          url: "Vue.webp"
-        },
-        {
-          id: 4,
-          name: ".NET",
-          url: "Net.webp"
-        },
-        {
-          id: 5,
-          name: "Laravel",
-          url: "Laravel.webp"
-        },
-        {
-          id: 6,
-          name: "Ionic",
-          url: "Ionic.svg"
-        },
-      ],
-      aiTools: [
-        {
-          id: 1,
-          name: "n8n",
-          url: "n8n.svg"
-        },
-        {
-          id: 2,
-          name: "Ollama",
-          url: "Ollama.svg"
-        },
-        {
-          id: 3,
-          name: "Supabase",
-          url: "Supabase.svg"
-        },
-        {
-          id: 4,
-          name: "Claude",
-          url: "Claude.svg"
-        },
-        {
-          id: 5,
-          name: "ChatGPT",
-          url: "ChatGPT.svg"
-        },
-      ],
-      libraries: [
-        { id: 1, name: "Vuetify", url: "Vuetify.svg" },
-        { id: 2, name: "Three.js", url: "Threejs.svg" },
-        { id: 3, name: "GSAP", url: "GSAP.svg" },
-        { id: 4, name: "Bootstrap", url: "Bootstrap.svg" },
-      ],
-      platforms: [
-        {
-          id: 1,
-          name: "Prismic.io",
-          url: "Prismic.webp"
-        },
-        {
-          id: 2,
-          name: "Hygraph",
-          url: "Hygraph.webp"
-        },
-        {
-          id: 3,
-          name: "WordPress",
-          url: "WordPress.webp"
-        },
-        {
-          id: 4,
-          name: "Vercel",
-          url: "Vercel.svg"
-        },
-        {
-          id: 5,
-          name: "GitHub",
-          url: "GitHub.svg"
+          label: "CMS & Platforms",
+          wide: true,
+          skills: [
+            { name: "Prismic.io", icon: "Prismic.webp" },
+            { name: "Hygraph", icon: "Hygraph.webp" },
+            { name: "WordPress", icon: "WordPress.webp" },
+          ],
         },
       ],
     };
-  }
+  },
 
-}
+  mounted() {
+    this.$nextTick(() => {
+      this.initScrollAnimations();
+    });
+  },
+
+  beforeUnmount() {
+    ScrollTrigger.getAll().forEach(st => {
+      if (this.$el && this.$el.contains(st.trigger)) st.kill();
+    });
+  },
+
+  methods: {
+    initScrollAnimations() {
+      const cards = this.$el.querySelectorAll(".ts__card");
+
+      cards.forEach((card) => {
+        const label = card.querySelector(".ts__card-label");
+        const pills = card.querySelectorAll(".ts__pill");
+
+        gsap.from(label, {
+          x: -20,
+          opacity: 0,
+          duration: 0.5,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: card,
+            start: "top 85%",
+            once: true,
+          },
+        });
+
+        gsap.from(pills, {
+          y: 20,
+          opacity: 0,
+          scale: 0.9,
+          duration: 0.4,
+          stagger: 0.05,
+          ease: "back.out(1.4)",
+          scrollTrigger: {
+            trigger: card,
+            start: "top 80%",
+            once: true,
+          },
+        });
+      });
+    },
+  },
+};
 </script>
 
 <style scoped>
-
-h3 {
-  text-align: center;
-  color: #242424;
+/* Grid */
+.ts__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 24px;
 }
 
-.technologien .language__list > .language > .language__img--wrapper > img,
-.platforms .language__list > .language > .language__img--wrapper > img{
-border-radius: 15px;
+/* Card */
+.ts__card {
+  background: var(--color-surface);
+  border-radius: 14px;
+  padding: 24px;
+  border: 1px solid var(--color-border);
+  box-shadow: 0 2px 12px var(--color-card-shadow);
 }
 
-/* TECH STACK */
-.language__list {
+.ts__card--wide {
+  grid-column: 1 / -1;
+}
+
+/* Category label */
+.ts__card-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-blue);
+  margin-bottom: 14px;
+}
+
+/* Pills */
+.ts__pills {
   display: flex;
-  width: 100%;
   flex-wrap: wrap;
-  justify-content: center;
+  gap: 8px;
 }
 
-.language {
-  width: 25%;
-  display: flex;
+.ts__pill {
+  display: inline-flex;
   align-items: center;
-  flex-direction: column;
-  position: relative;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  background: var(--color-bg-alt);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+  will-change: transform, opacity;
 }
 
-.language__img--wrapper {
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  padding: 25px 6px;
+.ts__pill:hover {
+  background: var(--color-blue);
+  color: #fff;
+  transform: scale(1.03);
 }
 
-
-
-.language__img {
-  width: 100%;
-  /* max-width: 100px; */
-  transition: all 300ms;
+.ts__pill:hover .ts__pill-icon {
+  filter: brightness(0) invert(1);
 }
 
-.language:hover .language__img {
-  filter: brightness(80%);
-  opacity: 0.86;
-  transform: scale(0.9);
+/* Icon */
+.ts__pill-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  transition: filter 0.2s ease;
 }
 
-.language__name {
-  position: absolute;
-  bottom: 0;
-  transform: scale(0);
-  transition: all 300ms;
-  font-size: 20px;
+.ts__pill-name {
+  white-space: nowrap;
 }
 
-.language:hover .language__name {
-  transform: scale(1);
-}
-
-/* SM (for tablets - screens ≥ than 768px wide) */
-@media (width >= 768px) {
-  .language__img--wrapper {
-    padding: 25px 8px;
+/* Responsive */
+@media (max-width: 768px) {
+  .ts__grid {
+    grid-template-columns: 1fr;
   }
-}
 
+  .ts__card {
+    padding: 20px;
+  }
 
+  .ts__pill {
+    font-size: 13px;
+    padding: 5px 12px;
+  }
 
-/* MD (for small laptops - screens ≥ than 992px wide) */
-@media (width >= 992px) {
-  .language__img--wrapper {
-    padding: 25px 16px;
+  .ts__pill-icon {
+    width: 18px;
+    height: 18px;
   }
 }
 </style>
