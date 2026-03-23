@@ -23,6 +23,11 @@
 </template>
 
 <script>
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
 export default {
   name: "HobbiesComponent",
   data() {
@@ -37,6 +42,28 @@ export default {
       ],
     };
   },
+  mounted() {
+    this.$nextTick(() => {
+      const cards = this.$el.querySelectorAll(".hobby__card");
+      gsap.from(cards, {
+        y: 60,
+        opacity: 0,
+        duration: 0.7,
+        stagger: 0.12,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: this.$el.querySelector(".hobbies__grid"),
+          start: "top 80%",
+          once: true,
+        },
+      });
+    });
+  },
+  beforeUnmount() {
+    ScrollTrigger.getAll().forEach(st => {
+      if (this.$el && this.$el.contains(st.trigger)) st.kill();
+    });
+  },
 };
 </script>
 
@@ -49,22 +76,22 @@ export default {
 }
 
 .hobby__card {
-  background: #fff;
+  background: var(--color-surface);
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px var(--color-card-shadow);
   transition: transform 300ms ease, box-shadow 300ms ease;
 }
 
 .hobby__card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 24px var(--color-card-shadow-hover);
 }
 
 .hobby__image {
   width: 100%;
   height: 200px;
-  background-color: #e8e8e8;
+  background-color: var(--color-placeholder);
   background-size: cover;
   background-position: center;
   display: flex;
@@ -74,7 +101,7 @@ export default {
 
 .hobby__placeholder-icon {
   font-size: 48px;
-  color: #bbb;
+  color: var(--color-placeholder-icon);
 }
 
 .hobby__info {
@@ -83,13 +110,13 @@ export default {
 
 .hobby__name {
   font-size: 18px;
-  color: #242424;
+  color: var(--color-text);
   margin-bottom: 6px;
 }
 
 .hobby__description {
   font-size: 14px;
-  color: #666;
+  color: var(--color-text-muted);
   line-height: 1.5;
 }
 

@@ -47,8 +47,36 @@
 </template>
 
 <script>
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
 export default {
   name: "OverMijComponent",
+  mounted() {
+    this.$nextTick(() => {
+      const blocks = this.$el.querySelectorAll(".over-mij__block");
+      blocks.forEach((block, i) => {
+        gsap.from(block, {
+          x: i % 2 === 0 ? -50 : 50,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: block,
+            start: "top 85%",
+            once: true,
+          },
+        });
+      });
+    });
+  },
+  beforeUnmount() {
+    ScrollTrigger.getAll().forEach(st => {
+      if (this.$el && this.$el.contains(st.trigger)) st.kill();
+    });
+  },
 }
 </script>
 
@@ -62,7 +90,7 @@ export default {
 }
 
 .over-mij__subtitle {
-  color: #14539A;
+  color: var(--color-blue);
   font-size: 22px;
   margin-bottom: 12px;
   text-align: left;
@@ -71,7 +99,7 @@ export default {
 .over-mij__para {
   font-size: 16px;
   line-height: 1.7;
-  color: #444;
+  color: var(--color-text-secondary);
   margin-bottom: 12px;
   text-align: left;
 }
@@ -84,7 +112,7 @@ export default {
 .over-mij__list li {
   font-size: 16px;
   line-height: 1.7;
-  color: #444;
+  color: var(--color-text-secondary);
   padding-left: 20px;
   position: relative;
   margin-bottom: 8px;
@@ -95,7 +123,7 @@ export default {
   content: "→";
   position: absolute;
   left: 0;
-  color: #14539A;
+  color: var(--color-blue);
   font-weight: bold;
 }
 </style>
