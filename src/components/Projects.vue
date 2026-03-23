@@ -168,17 +168,6 @@ export default {
 
         this.projects = sortedProjects;
         this.isLoading = false;
-
-        // DEBUG: log Prismic data structure — verwijder na review
-        console.log('=== PRISMIC PROJECT DATA ===');
-        console.log('Aantal projecten:', sortedProjects.length);
-        sortedProjects.forEach((p, i) => {
-          console.log(`\n--- Project ${i + 1}: ${p.data.project_title?.[0]?.text || 'no title'} ---`);
-          console.log('ID:', p.id);
-          console.log('Type:', p.type);
-          console.log('Alle data keys:', Object.keys(p.data));
-          console.log('Volledige data:', JSON.parse(JSON.stringify(p.data)));
-        });
       } catch (error) {
         console.error('Error fetching data from Prismic:', error);
       }
