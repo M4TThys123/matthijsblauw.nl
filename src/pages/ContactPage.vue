@@ -210,7 +210,7 @@ export default {
       this.loading = true;
 
       try {
-        const response = await fetch("https://formspree.io/f/xyzformid", {
+        const response = await fetch("https://formspree.io/f/mreynnbo", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
