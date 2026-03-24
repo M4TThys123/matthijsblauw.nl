@@ -14,7 +14,7 @@
             <router-link to="/werkervaring" class="nav__link nav__link--anchor" @click="closeNav">Werkervaring</router-link>
           </li>
           <li class="nav__item">
-            <router-link to="/charts" class="nav__link nav__link--anchor" @click="closeNav">Statistieken</router-link>
+            <router-link to="/statistieken" class="nav__link nav__link--anchor" @click="closeNav">Statistieken</router-link>
           </li>
           <li class="nav__item">
             <router-link to="/blog" class="nav__link nav__link--anchor" @click="closeNav">Blog</router-link>

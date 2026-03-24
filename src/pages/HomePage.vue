@@ -12,7 +12,7 @@
         <div class="home-chart-preview__chart">
           <SkillsRadarChart />
         </div>
-        <router-link to="/charts" class="home-chart-preview__link">
+        <router-link to="/statistieken" class="home-chart-preview__link">
           Bekijk alle statistieken
           <i class="bx bx-right-arrow-alt"></i>
         </router-link>

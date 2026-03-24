@@ -13,7 +13,8 @@ const routes = [
     component: () => import('@/pages/ProjectDetailPage.vue'),
   },
   { path: '/werkervaring', name: 'Werkervaring', component: WerkervaringPage },
-  { path: '/charts', name: 'Charts', component: ChartsPage },
+  { path: '/statistieken', name: 'Statistieken', component: ChartsPage },
+  { path: '/charts', redirect: '/statistieken' },
   {
     path: '/blog',
     name: 'Blog',
