@@ -180,7 +180,7 @@ export default {
         'profile': '#6366f1',
         'bijfluit': '#b45309',
         'wijn': '#b45309',
-        'jbe': '#374151',
+        'jbe': '#0096D7',
         'gv': '#166534',
       },
       techMap: {
