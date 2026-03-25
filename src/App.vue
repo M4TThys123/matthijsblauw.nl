@@ -60,6 +60,10 @@ export default {
   --color-hamburger: #1a1919;
   --color-overlay-bg: rgba(255, 255, 255, 0.98);
   --color-project-overlay: #1c1d25;
+
+  /* Floating icons */
+  --opacity-icon-float: 0.10;
+  --opacity-icon-float-mobile: 0.07;
 }
 
 /* Dark theme overrides */
@@ -90,6 +94,10 @@ export default {
   --color-hamburger: #e8eaf0;
   --color-overlay-bg: rgba(18, 19, 24, 0.98);
   --color-project-overlay: #0d0e14;
+
+  /* Floating icons */
+  --opacity-icon-float: 0.15;
+  --opacity-icon-float-mobile: 0.10;
 }
 
 /* System preference fallback (no JS / no manual choice) */

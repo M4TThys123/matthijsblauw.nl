@@ -1,6 +1,13 @@
 <template>
   <section id="about-me" class="py-4">
-    <!--    <NavComponent></NavComponent>-->
+    <!-- Floating background icons (decoratief) -->
+    <FloatingIcons />
+
+    <!-- concept / wip badge — verwijder als het definitief is -->
+    <div class="concept-badge" role="status" aria-label="Dit is een concept">
+      <span class="concept-dot" aria-hidden="true"></span>
+      concept / wip
+    </div>
 
     <div class="flex flex-1">
       <div class="about-me__info row-class">
@@ -52,20 +59,53 @@
 // import NavComponent from "@/components/Nav.vue";
 
 import PDFLink from "@/components/PDFLink.vue";
+import FloatingIcons from "@/components/FloatingIcons.vue";
 
 export default {
   name: "AboutComponent",
-  components: { PDFLink }
+  components: { PDFLink, FloatingIcons }
 }
 </script>
 
 <style scoped>
 /* ABOUT ME */
 #about-me {
+  position: relative;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   margin-top: 100px;
+}
+
+.about-me__info--container {
+  position: relative;
+  z-index: 2;
+}
+
+/* Concept badge — verwijder als feature definitief is */
+.concept-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  font-size: 11px;
+  color: var(--color-text-muted);
+  font-family: monospace;
+  letter-spacing: 0.04em;
+}
+
+.concept-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #f59e0b;
 }
 
 .about-me__info {
