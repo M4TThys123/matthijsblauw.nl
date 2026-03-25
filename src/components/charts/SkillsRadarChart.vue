@@ -38,7 +38,11 @@ export default {
           r: {
             beginAtZero: true,
             max: 100,
-            ticks: { stepSize: 20 },
+            ticks: {
+              stepSize: 20,
+              backdropColor: 'transparent',
+              color: 'rgba(150, 150, 150, 0.6)',
+            },
           },
         },
       }
