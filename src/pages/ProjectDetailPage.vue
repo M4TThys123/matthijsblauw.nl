@@ -172,10 +172,20 @@
         </div>
         </div>
 
-      <!-- Project switcher -->
+      <!-- Project switcher (horizontale scroll) -->
       <div v-if="otherProjects.length" class="detail__switcher">
-        <h2 class="detail__switcher-title">Bekijk ook</h2>
-        <div class="detail__switcher-grid">
+        <div class="detail__switcher-header">
+          <h2 class="detail__switcher-title">Bekijk ook</h2>
+          <div class="detail__switcher-nav">
+            <button class="detail__switcher-btn" @click="scrollSwitcher(-1)">
+              <i class="bx bx-chevron-left"></i>
+            </button>
+            <button class="detail__switcher-btn" @click="scrollSwitcher(1)">
+              <i class="bx bx-chevron-right"></i>
+            </button>
+          </div>
+        </div>
+        <div class="detail__switcher-track" ref="switcherTrack">
           <router-link
             v-for="other in otherProjects"
             :key="other.id"
@@ -184,16 +194,17 @@
           >
             <div
               class="detail__switcher-image"
-              :style="{
-                backgroundImage: other.image ? 'url(' + other.image + ')' : 'none',
-                background: !other.image ? (other.color || 'var(--color-blue)') : undefined
-              }"
+              :style="other.image
+                ? { backgroundImage: 'url(' + other.image + ')' }
+                : { background: other.color }"
             >
               <span v-if="!other.image" class="detail__switcher-fallback">{{ other.name.charAt(0) }}</span>
             </div>
             <div class="detail__switcher-info">
               <h3>{{ other.name }}</h3>
-              <span v-if="other.subtitle" class="detail__switcher-sub">{{ other.subtitle }}</span>
+              <div v-if="other.techs.length" class="detail__switcher-tags">
+                <span v-for="tech in other.techs.slice(0, 3)" :key="tech" class="detail__switcher-tag">{{ tech }}</span>
+              </div>
             </div>
           </router-link>
         </div>
@@ -300,7 +311,6 @@ export default {
       if (!this.project || !this.allProjects.length) return [];
       return this.allProjects
         .filter(p => p.id !== this.project.id)
-        .slice(0, 3)
         .map(p => {
           const title = (p.data.project_title?.[0]?.text || '').toLowerCase();
           let color = p.data.primary_color || null;
@@ -310,10 +320,15 @@ export default {
             }
           }
           const name = p.data.project_title?.[0]?.text || 'Untitled';
+          // Tech tags ophalen uit techMap
+          let techs = [];
+          for (const [keyword, t] of Object.entries(this.techMap)) {
+            if (title.includes(keyword)) { techs = t; break; }
+          }
           return {
             id: p.uid || this.toSlug(name) || p.id,
             name,
-            subtitle: p.data.sub_title?.[0]?.text || '',
+            techs,
             image: p.data.project_image?.url || '',
             color: color || '#14539A',
           };
@@ -365,6 +380,12 @@ export default {
   },
   methods: {
     asHTML,
+    scrollSwitcher(direction) {
+      const track = this.$refs.switcherTrack;
+      if (!track) return;
+      const scrollAmount = 260;
+      track.scrollBy({ left: direction * scrollAmount, behavior: 'smooth' });
+    },
     scaleIframe() {
       this.$nextTick(() => {
         const content = this.$el?.querySelector('.detail__browser-content');
@@ -982,36 +1003,77 @@ export default {
   }
 }
 
-/* Project Switcher */
+/* Project Switcher (horizontale scroll) */
 .detail__switcher {
   max-width: 800px;
   margin: 0 auto;
-  padding: 60px 12px 80px;
+  padding: 48px 12px 80px;
   border-top: 1px solid var(--color-border);
+}
+
+.detail__switcher-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
 }
 
 .detail__switcher-title {
   font-size: 22px;
   color: var(--color-text);
   text-align: left;
-  margin-bottom: 20px;
 }
 
-.detail__switcher-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+.detail__switcher-nav {
+  display: flex;
+  gap: 6px;
+}
+
+.detail__switcher-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  font-size: 20px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.detail__switcher-btn:hover {
+  background: var(--color-blue);
+  color: #fff;
+  border-color: var(--color-blue);
+}
+
+.detail__switcher-track {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding-bottom: 4px;
+}
+
+.detail__switcher-track::-webkit-scrollbar {
+  display: none;
 }
 
 .detail__switcher-card {
-  display: flex;
-  flex-direction: column;
+  flex-shrink: 0;
+  width: 220px;
   border-radius: 12px;
   overflow: hidden;
   background: var(--color-surface);
   box-shadow: 0 2px 12px var(--color-card-shadow);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-decoration: none;
+  scroll-snap-align: start;
 }
 
 .detail__switcher-card:hover {
@@ -1020,7 +1082,7 @@ export default {
 }
 
 .detail__switcher-image {
-  height: 120px;
+  height: 110px;
   background-size: cover;
   background-position: center;
   display: flex;
@@ -1029,31 +1091,40 @@ export default {
 }
 
 .detail__switcher-fallback {
-  font-size: 36px;
+  font-size: 32px;
   font-weight: 900;
   color: rgba(255, 255, 255, 0.6);
 }
 
 .detail__switcher-info {
-  padding: 12px 14px;
+  padding: 10px 12px;
 }
 
 .detail__switcher-info h3 {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
   color: var(--color-text);
   text-align: left;
   line-height: 1.3;
-  margin-bottom: 2px;
-}
-
-.detail__switcher-sub {
-  font-size: 12px;
-  color: var(--color-text-muted);
-  display: block;
+  margin-bottom: 6px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.detail__switcher-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.detail__switcher-tag {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 12px;
+  background: var(--color-hover);
+  color: var(--color-blue);
 }
 
 /* Responsive */
@@ -1082,8 +1153,8 @@ export default {
     font-size: 32px;
   }
 
-  .detail__switcher-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .detail__switcher-card {
+    width: 200px;
   }
 
   .detail__title {
@@ -1130,25 +1201,12 @@ export default {
     padding: 4px 12px;
   }
 
-  .detail__switcher-grid {
-    grid-template-columns: 1fr;
-  }
-
   .detail__switcher-card {
-    flex-direction: row;
+    width: 180px;
   }
 
   .detail__switcher-image {
-    width: 80px;
-    height: auto;
-    min-height: 80px;
-    flex-shrink: 0;
-  }
-
-  .detail__switcher-info {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    height: 90px;
   }
 }
 </style>
