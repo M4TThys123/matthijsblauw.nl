@@ -150,7 +150,34 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-#app {
+/* Alle content boven floating icons */
+#app > *:not(.fi-layer) {
+  position: relative;
+  z-index: 1;
+}
+
+/* Secties, kaarten en interactieve elementen boven icons */
+section,
+article,
+footer,
+.container-class,
+.row-class,
+.hobby__card,
+.ts__card,
+.stats-section__card,
+.blog-card,
+.we-item,
+.chart-card,
+.project__wrapper,
+.project-card__inner,
+.detail__content,
+.detail__slider,
+.detail__gradient-hero,
+.detail__browser,
+.detail__switcher,
+.contact-wrapper,
+.marquee-track,
+.home-chart-preview__inner {
   position: relative;
   z-index: 1;
 }
