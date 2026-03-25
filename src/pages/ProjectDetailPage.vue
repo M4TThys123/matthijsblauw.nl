@@ -825,11 +825,21 @@ export default {
   transition: max-width 0.4s ease;
 }
 
+/*
+  Vergroot: hoogte als basis.
+  Beschikbare hoogte = 100vh - 70px (header) - 10% witruimte
+  Breedte = hoogte * 1.6 (16:10 ratio) + title bar hoogte
+*/
 .detail__demo--expanded {
-  width: calc(100vw - 64px);
+  --demo-height: calc((100vh - 70px) * 0.9);
+  --demo-width: calc(var(--demo-height) * 1.6);
+  width: var(--demo-width);
   max-width: calc(100vw - 64px);
-  margin-left: calc(-50vw + 50% + 32px);
-  margin-right: calc(-50vw + 50% + 32px);
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 /* Browser chrome */
