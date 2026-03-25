@@ -343,11 +343,37 @@ export default {
       return [];
     },
   },
+  watch: {
+    showIframe(val) {
+      if (val) this.scaleIframe();
+    },
+    demoExpanded() {
+      this.scaleIframe();
+    },
+  },
   created() {
     this.fetchProject();
   },
+  mounted() {
+    this._resizeHandler = () => this.scaleIframe();
+    window.addEventListener('resize', this._resizeHandler);
+  },
+  beforeUnmount() {
+    if (this._resizeHandler) {
+      window.removeEventListener('resize', this._resizeHandler);
+    }
+  },
   methods: {
     asHTML,
+    scaleIframe() {
+      this.$nextTick(() => {
+        const content = this.$el?.querySelector('.detail__browser-content');
+        const iframe = this.$el?.querySelector('.detail__browser-iframe');
+        if (!content || !iframe) return;
+        const scale = content.offsetWidth / 1440;
+        iframe.style.transform = `scale(${scale})`;
+      });
+    },
     toSlug(text) {
       return text
         .toLowerCase()
@@ -779,11 +805,9 @@ export default {
 }
 
 .detail__demo--expanded {
-  max-width: 100vw !important;
-  margin-left: calc(-50vw + 50%);
-  margin-right: calc(-50vw + 50%);
-  padding-left: 24px;
-  padding-right: 24px;
+  max-width: calc(100vw - 80px) !important;
+  margin-left: calc(-50vw + 50% + 40px);
+  margin-right: calc(-50vw + 50% + 40px);
 }
 
 /* Browser chrome */
@@ -877,22 +901,25 @@ export default {
   color: var(--color-blue);
 }
 
-/* iframe content — 16:10 aspect ratio (MacBook) */
+/* iframe content — 16:10 aspect ratio, geschaald als echt laptop scherm */
 .detail__browser-content {
   position: relative;
   width: 100%;
-  padding-top: 62.5%; /* 16:10 = 10/16 = 62.5% */
+  padding-top: 62.5%; /* 16:10 */
   background: #fff;
+  overflow: hidden;
 }
 
 .detail__browser-iframe {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 1440px;
+  height: 900px;
   border: none;
   display: block;
+  transform-origin: top left;
+  /* Scale wordt berekend door JS op basis van container breedte */
 }
 
 /* Placeholder — 16:10 met project afbeelding */
@@ -943,10 +970,9 @@ export default {
 
 @media (max-width: 768px) {
   .detail__demo--expanded {
-    margin-left: -16px;
-    margin-right: -16px;
-    padding-left: 0;
-    padding-right: 0;
+    max-width: calc(100vw - 32px) !important;
+    margin-left: calc(-50vw + 50% + 16px);
+    margin-right: calc(-50vw + 50% + 16px);
   }
 }
 
