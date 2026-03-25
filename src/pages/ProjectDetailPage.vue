@@ -124,51 +124,44 @@
           </a>
         </div>
 
-        <!-- Live Demo -->
-        <div v-if="project.data.website_link && isDemoEnabled" class="detail__demo">
-          <div class="detail__demo-header">
-            <h3 class="detail__demo-title">Live Demo</h3>
-            <div class="detail__demo-actions">
-              <button
-                v-if="!showIframe"
-                class="detail__btn detail__btn--primary detail__btn--sm"
-                :style="{ background: projectColor }"
-                @click="showIframe = true"
-              >
-                <i class="bx bx-play"></i>
-                Demo starten
-              </button>
-              <button
-                v-if="showIframe"
-                class="detail__btn detail__btn--secondary detail__btn--sm"
-                @click="showIframe = false"
-              >
-                <i class="bx bx-x"></i>
-                Sluiten
-              </button>
-              <a
-                :href="project.data.website_link"
-                class="detail__btn detail__btn--secondary detail__btn--sm"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <i class="bx bx-link-external"></i>
-                Open in nieuw tabblad
-              </a>
+        <!-- Live Demo (macOS browser frame) -->
+        <div v-if="project.data.website_link && isDemoEnabled" class="detail__demo" :class="{ 'detail__demo--expanded': demoExpanded }">
+          <div class="detail__browser">
+            <!-- macOS title bar -->
+            <div class="detail__browser-bar">
+              <div class="detail__browser-dots">
+                <span class="detail__browser-dot detail__browser-dot--red" @click="showIframe = false"></span>
+                <span class="detail__browser-dot detail__browser-dot--yellow"></span>
+                <span class="detail__browser-dot detail__browser-dot--green" @click="demoExpanded = !demoExpanded"></span>
+              </div>
+              <div class="detail__browser-url">
+                <i class="bx bx-lock-alt"></i>
+                {{ project.data.website_link.replace('https://', '').replace('http://', '') }}
+              </div>
+              <div class="detail__browser-actions">
+                <a :href="project.data.website_link" target="_blank" rel="noopener noreferrer" class="detail__browser-action" title="Open in nieuw tabblad">
+                  <i class="bx bx-link-external"></i>
+                </a>
+              </div>
             </div>
-          </div>
 
-          <transition name="demo-fade">
-            <div v-if="showIframe" class="detail__demo-frame">
+            <!-- iframe content -->
+            <div v-if="showIframe" class="detail__browser-content">
               <iframe
                 :src="project.data.website_link"
-                class="detail__demo-iframe"
+                class="detail__browser-iframe"
                 frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope"
                 loading="lazy"
               ></iframe>
             </div>
-          </transition>
+
+            <!-- Placeholder (voor iframe geladen wordt) -->
+            <div v-else class="detail__browser-placeholder" @click="showIframe = true">
+              <i class="bx bx-play-circle"></i>
+              <span>Klik om live demo te starten</span>
+            </div>
+          </div>
         </div>
         </div>
 
@@ -214,16 +207,16 @@ export default {
       isLoading: true,
       activeSlide: 0,
       showIframe: false,
+      demoExpanded: false,
       // Sites waar live demo beschikbaar is (jouw eigen sites)
       demoSites: [
         'matthijsblauw.nl',
         'steedsvoorwaarts.nl',
         'luckywear.nl',
-        'florisschroeffundering.nl',
         'ilojo-bar',
-        'weather-app-plus',
         'profile-card',
-        'jbistallatie',
+        // 'weather-app-plus',  // TODO: API key fixen
+        // 'jbistallatie',       // TODO: moderniseren
       ],
       // Fallback kleuren per project (als er geen primary_color in Prismic staat)
       colorMap: {
@@ -770,95 +763,171 @@ export default {
   color: var(--color-blue);
 }
 
-/* Live Demo */
+/* Live Demo — macOS Browser Frame */
 .detail__demo {
   margin-top: 48px;
   padding-top: 40px;
   border-top: 1px solid var(--color-border);
+  transition: max-width 0.4s ease;
 }
 
-.detail__demo-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 20px;
+.detail__demo--expanded {
+  max-width: 100vw !important;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  padding-left: 24px;
+  padding-right: 24px;
 }
 
-.detail__demo-title {
-  font-size: 20px;
-  color: var(--color-text);
-  text-align: left;
-}
-
-.detail__demo-actions {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.detail__btn--sm {
-  padding: 8px 16px;
-  font-size: 13px;
-  border-radius: 8px;
-}
-
-.detail__btn--sm i {
-  font-size: 16px;
-}
-
-.detail__demo-frame {
-  width: 100%;
+/* Browser chrome */
+.detail__browser {
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 8px 32px var(--color-card-shadow);
+  box-shadow: 0 8px 40px var(--color-card-shadow);
   border: 1px solid var(--color-border);
   background: var(--color-surface);
 }
 
-.detail__demo-iframe {
+/* Title bar */
+.detail__browser-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  background: var(--color-bg-alt);
+  border-bottom: 1px solid var(--color-border);
+  min-height: 40px;
+}
+
+.detail__browser-dots {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.detail__browser-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.detail__browser-dot:hover {
+  opacity: 0.8;
+}
+
+.detail__browser-dot--red {
+  background: #ff5f57;
+}
+
+.detail__browser-dot--yellow {
+  background: #febc2e;
+}
+
+.detail__browser-dot--green {
+  background: #28c840;
+}
+
+.detail__browser-url {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  background: var(--color-surface);
+  border-radius: 6px;
+  font-size: 12px;
+  color: var(--color-text-muted);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.detail__browser-url i {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.detail__browser-actions {
+  flex-shrink: 0;
+}
+
+.detail__browser-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  color: var(--color-text-muted);
+  font-size: 16px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.detail__browser-action:hover {
+  background: var(--color-hover);
+  color: var(--color-blue);
+}
+
+/* iframe content */
+.detail__browser-content {
+  background: #fff;
+}
+
+.detail__browser-iframe {
   width: 100%;
-  height: 600px;
+  height: 550px;
   border: none;
   display: block;
 }
 
-.demo-fade-enter-active {
-  transition: opacity 0.4s ease, max-height 0.5s ease;
+/* Placeholder */
+.detail__browser-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  height: 350px;
+  background: var(--color-bg-alt);
+  cursor: pointer;
+  transition: background 0.2s ease;
 }
 
-.demo-fade-leave-active {
-  transition: opacity 0.2s ease, max-height 0.3s ease;
+.detail__browser-placeholder:hover {
+  background: var(--color-hover);
 }
 
-.demo-fade-enter-from,
-.demo-fade-leave-to {
-  opacity: 0;
-  max-height: 0;
+.detail__browser-placeholder i {
+  font-size: 48px;
+  color: var(--color-blue);
 }
 
-.demo-fade-enter-to {
-  opacity: 1;
-  max-height: 700px;
+.detail__browser-placeholder span {
+  font-size: 15px;
+  color: var(--color-text-muted);
+  font-weight: 600;
 }
 
 @media (max-width: 768px) {
-  .detail__demo-iframe {
+  .detail__browser-iframe {
     height: 400px;
   }
 
-  .detail__demo-header {
-    flex-direction: column;
-    align-items: flex-start;
+  .detail__browser-placeholder {
+    height: 250px;
+  }
+
+  .detail__demo--expanded {
+    margin-left: -16px;
+    margin-right: -16px;
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 
 @media (max-width: 480px) {
-  .detail__demo-iframe {
-    height: 300px;
-  }
-
   .detail__demo {
     display: none;
   }
