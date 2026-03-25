@@ -826,9 +826,10 @@ export default {
 }
 
 .detail__demo--expanded {
-  max-width: min(1200px, calc(100vw - 120px)) !important;
-  margin-left: auto;
-  margin-right: auto;
+  width: calc(100vw - 64px);
+  max-width: calc(100vw - 64px);
+  margin-left: calc(-50vw + 50% + 32px);
+  margin-right: calc(-50vw + 50% + 32px);
 }
 
 /* Browser chrome */
