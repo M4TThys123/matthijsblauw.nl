@@ -156,10 +156,17 @@
               ></iframe>
             </div>
 
-            <!-- Placeholder (voor iframe geladen wordt) -->
-            <div v-else class="detail__browser-placeholder" @click="showIframe = true">
-              <i class="bx bx-play-circle"></i>
-              <span>Klik om live demo te starten</span>
+            <!-- Placeholder (project image als achtergrond) -->
+            <div
+              v-else
+              class="detail__browser-placeholder"
+              @click="showIframe = true"
+              :style="projectImages.length ? { backgroundImage: 'url(' + projectImages[0].url + ')' } : {}"
+            >
+              <div class="detail__browser-placeholder-overlay">
+                <i class="bx bx-play-circle"></i>
+                <span>Klik om live demo te starten</span>
+              </div>
             </div>
           </div>
         </div>
@@ -870,55 +877,71 @@ export default {
   color: var(--color-blue);
 }
 
-/* iframe content */
+/* iframe content — 16:10 aspect ratio (MacBook) */
 .detail__browser-content {
+  position: relative;
+  width: 100%;
+  padding-top: 62.5%; /* 16:10 = 10/16 = 62.5% */
   background: #fff;
 }
 
 .detail__browser-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 550px;
+  height: 100%;
   border: none;
   display: block;
 }
 
-/* Placeholder */
+/* Placeholder — 16:10 met project afbeelding */
 .detail__browser-placeholder {
+  position: relative;
+  width: 100%;
+  padding-top: 62.5%; /* 16:10 */
+  background-size: cover;
+  background-position: center top;
+  background-color: var(--color-bg-alt);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.detail__browser-placeholder-overlay {
+  position: absolute;
+  inset: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 12px;
-  height: 350px;
-  background: var(--color-bg-alt);
-  cursor: pointer;
-  transition: background 0.2s ease;
+  background: rgba(0, 0, 0, 0.4);
+  transition: background 0.3s ease;
 }
 
-.detail__browser-placeholder:hover {
-  background: var(--color-hover);
+.detail__browser-placeholder:hover .detail__browser-placeholder-overlay {
+  background: rgba(0, 0, 0, 0.6);
 }
 
-.detail__browser-placeholder i {
-  font-size: 48px;
-  color: var(--color-blue);
+.detail__browser-placeholder-overlay i {
+  font-size: 56px;
+  color: #fff;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+  transition: transform 0.3s ease;
 }
 
-.detail__browser-placeholder span {
+.detail__browser-placeholder:hover .detail__browser-placeholder-overlay i {
+  transform: scale(1.1);
+}
+
+.detail__browser-placeholder-overlay span {
   font-size: 15px;
-  color: var(--color-text-muted);
+  color: rgba(255, 255, 255, 0.9);
   font-weight: 600;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 }
 
 @media (max-width: 768px) {
-  .detail__browser-iframe {
-    height: 400px;
-  }
-
-  .detail__browser-placeholder {
-    height: 250px;
-  }
-
   .detail__demo--expanded {
     margin-left: -16px;
     margin-right: -16px;
