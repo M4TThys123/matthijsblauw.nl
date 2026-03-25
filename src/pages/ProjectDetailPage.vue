@@ -123,7 +123,54 @@
             Website bekijken
           </a>
         </div>
-      </div>
+
+        <!-- Live Demo -->
+        <div v-if="project.data.website_link && isDemoEnabled" class="detail__demo">
+          <div class="detail__demo-header">
+            <h3 class="detail__demo-title">Live Demo</h3>
+            <div class="detail__demo-actions">
+              <button
+                v-if="!showIframe"
+                class="detail__btn detail__btn--primary detail__btn--sm"
+                :style="{ background: projectColor }"
+                @click="showIframe = true"
+              >
+                <i class="bx bx-play"></i>
+                Demo starten
+              </button>
+              <button
+                v-if="showIframe"
+                class="detail__btn detail__btn--secondary detail__btn--sm"
+                @click="showIframe = false"
+              >
+                <i class="bx bx-x"></i>
+                Sluiten
+              </button>
+              <a
+                :href="project.data.website_link"
+                class="detail__btn detail__btn--secondary detail__btn--sm"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <i class="bx bx-link-external"></i>
+                Open in nieuw tabblad
+              </a>
+            </div>
+          </div>
+
+          <transition name="demo-fade">
+            <div v-if="showIframe" class="detail__demo-frame">
+              <iframe
+                :src="project.data.website_link"
+                class="detail__demo-iframe"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope"
+                loading="lazy"
+              ></iframe>
+            </div>
+          </transition>
+        </div>
+        </div>
 
       <!-- Project switcher -->
       <div v-if="otherProjects.length" class="detail__switcher">
@@ -166,6 +213,18 @@ export default {
       allProjects: [],
       isLoading: true,
       activeSlide: 0,
+      showIframe: false,
+      // Sites waar live demo beschikbaar is (jouw eigen sites)
+      demoSites: [
+        'matthijsblauw.nl',
+        'steedsvoorwaarts.nl',
+        'luckywear.nl',
+        'florisschroeffundering.nl',
+        'ilojo-bar',
+        'weather-app-plus',
+        'profile-card',
+        'jbistallatie',
+      ],
       // Fallback kleuren per project (als er geen primary_color in Prismic staat)
       colorMap: {
         'bulbmanager': '#1C397C',
@@ -259,6 +318,11 @@ export default {
             color: color || '#14539A',
           };
         });
+    },
+    isDemoEnabled() {
+      if (!this.project?.data?.website_link) return false;
+      const url = this.project.data.website_link.toLowerCase();
+      return this.demoSites.some(site => url.includes(site));
     },
     projectGradient() {
       // Genereer gradient op basis van projectColor
@@ -704,6 +768,100 @@ export default {
 .detail__btn--secondary:hover {
   border-color: var(--color-blue);
   color: var(--color-blue);
+}
+
+/* Live Demo */
+.detail__demo {
+  margin-top: 48px;
+  padding-top: 40px;
+  border-top: 1px solid var(--color-border);
+}
+
+.detail__demo-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.detail__demo-title {
+  font-size: 20px;
+  color: var(--color-text);
+  text-align: left;
+}
+
+.detail__demo-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.detail__btn--sm {
+  padding: 8px 16px;
+  font-size: 13px;
+  border-radius: 8px;
+}
+
+.detail__btn--sm i {
+  font-size: 16px;
+}
+
+.detail__demo-frame {
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px var(--color-card-shadow);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.detail__demo-iframe {
+  width: 100%;
+  height: 600px;
+  border: none;
+  display: block;
+}
+
+.demo-fade-enter-active {
+  transition: opacity 0.4s ease, max-height 0.5s ease;
+}
+
+.demo-fade-leave-active {
+  transition: opacity 0.2s ease, max-height 0.3s ease;
+}
+
+.demo-fade-enter-from,
+.demo-fade-leave-to {
+  opacity: 0;
+  max-height: 0;
+}
+
+.demo-fade-enter-to {
+  opacity: 1;
+  max-height: 700px;
+}
+
+@media (max-width: 768px) {
+  .detail__demo-iframe {
+    height: 400px;
+  }
+
+  .detail__demo-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .detail__demo-iframe {
+    height: 300px;
+  }
+
+  .detail__demo {
+    display: none;
+  }
 }
 
 /* Project Switcher */
