@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <FloatingIcons />
     <HeaderComponent></HeaderComponent>
     <router-view v-slot="{ Component }">
       <transition name="page" mode="out-in">
@@ -13,12 +14,14 @@
 <script>
 import HeaderComponent from "@/components/header/Header.vue";
 import FooterComponent from "@/components/Footer.vue";
+import FloatingIcons from "@/components/FloatingIcons.vue";
 
 export default {
   name: 'App',
   components: {
     HeaderComponent,
     FooterComponent,
+    FloatingIcons,
     },
 }
 </script>
@@ -145,6 +148,11 @@ body {
   background-color: var(--color-bg);
   color: var(--color-text);
   transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#app {
+  position: relative;
+  z-index: 1;
 }
 
 h1,

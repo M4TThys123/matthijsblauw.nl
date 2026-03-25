@@ -8,7 +8,7 @@
       :style="{
         top: icon.top + '%',
         left: icon.left + '%',
-        '--fi-dur': icon.dur,
+        '--fi-dur': scaledDur(icon.dur),
         '--fi-delay': icon.delay,
       }"
       v-html="icon.svg"
@@ -19,6 +19,16 @@
 <script>
 export default {
   name: 'FloatingIcons',
+  props: {
+    // Snelheid: 0.5 = dubbel zo snel, 1 = normaal, 2 = dubbel zo langzaam
+    speed: { type: Number, default: 1 },
+  },
+  methods: {
+    scaledDur(dur) {
+      const seconds = parseFloat(dur);
+      return (seconds * this.speed) + 's';
+    },
+  },
   data() {
     return {
       icons: [
@@ -90,9 +100,9 @@ export default {
 
 <style scoped>
 .fi-layer {
-  position: absolute;
+  position: fixed;
   inset: 0;
-  z-index: 1;
+  z-index: 0;
   pointer-events: none;
   overflow: hidden;
   contain: layout style;
