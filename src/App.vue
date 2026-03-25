@@ -67,6 +67,9 @@ export default {
   /* Floating icons */
   --opacity-icon-float: 0.10;
   --opacity-icon-float-mobile: 0.07;
+
+  /* Marquee */
+  --color-marquee-bg: #f0f4fa;
 }
 
 /* Dark theme overrides */
@@ -101,6 +104,9 @@ export default {
   /* Floating icons */
   --opacity-icon-float: 0.15;
   --opacity-icon-float-mobile: 0.10;
+
+  /* Marquee */
+  --color-marquee-bg: #151825;
 }
 
 /* System preference fallback (no JS / no manual choice) */
@@ -150,36 +156,12 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Alle content boven floating icons */
-#app > *:not(.fi-layer) {
-  position: relative;
-  z-index: 1;
-}
-
-/* Secties, kaarten en interactieve elementen boven icons */
+/* Content boven floating icons — via achtergrondkleur blokkeren */
 section,
-article,
-footer,
-.container-class,
-.row-class,
-.hobby__card,
-.ts__card,
-.stats-section__card,
-.blog-card,
-.we-item,
-.chart-card,
-.project__wrapper,
-.project-card__inner,
-.detail__content,
-.detail__slider,
-.detail__gradient-hero,
-.detail__browser,
-.detail__switcher,
-.contact-wrapper,
-.marquee-track,
-.home-chart-preview__inner {
+footer {
   position: relative;
   z-index: 1;
+  background: var(--color-bg);
 }
 
 h1,

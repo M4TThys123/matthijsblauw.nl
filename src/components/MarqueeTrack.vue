@@ -64,7 +64,7 @@ export default {
 .marquee-track {
   width: 100%;
   overflow: hidden;
-  background: rgba(20, 83, 154, 0.06);
+  background: var(--color-marquee-bg, #f3f6fb);
   border-top: 1px solid rgba(20, 83, 154, 0.1);
   border-bottom: 1px solid rgba(20, 83, 154, 0.1);
   padding: 18px 0;
