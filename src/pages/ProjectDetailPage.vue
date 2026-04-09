@@ -233,7 +233,7 @@ export default {
         'luckywear.nl',
         'ilojo-bar',
         'profile-card',
-        'weather-app',
+        'weather-app-plus',
         // 'jbistallatie',       // TODO: moderniseren
       ],
       // Fallback kleuren per project (als er geen primary_color in Prismic staat)
