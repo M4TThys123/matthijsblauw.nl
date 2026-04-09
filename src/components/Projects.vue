@@ -260,6 +260,12 @@ export default {
   color: #fff;
 }
 
+.project__description--title :deep(*),
+.project__description--sub-title :deep(*),
+.project__description--para :deep(*) {
+  color: #fff;
+}
+
 .project {
   margin-bottom: 80px;
 }

@@ -2,11 +2,13 @@
   <div id="app">
     <FloatingIcons />
     <HeaderComponent></HeaderComponent>
-    <router-view v-slot="{ Component }">
-      <transition name="page" mode="out-in">
-        <component :is="Component" :key="$route.path" />
-      </transition>
-    </router-view>
+    <main class="app__content">
+      <router-view v-slot="{ Component }">
+        <transition name="page" mode="out-in">
+          <component :is="Component" :key="$route.path" />
+        </transition>
+      </router-view>
+    </main>
     <FooterComponent></FooterComponent>
   </div>
 </template>
@@ -27,6 +29,16 @@ export default {
 </script>
 
 <style>
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app__content {
+  flex: 1;
+}
+
 /* =============================================
    THEME: CSS Custom Properties
    ============================================= */

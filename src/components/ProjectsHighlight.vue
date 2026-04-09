@@ -140,7 +140,7 @@ export default {
         const api = await Prismic.api(PRISMIC_ENDPOINT);
         const response = await api.query(
           Prismic.Predicates.at('document.type', 'projects'),
-          { pageSize: 6, orderings: '[document.last_publication_date desc]' }
+          { pageSize: 20, orderings: '[document.last_publication_date desc]' }
         );
 
         this.projects = (response.results || []).map(project => {

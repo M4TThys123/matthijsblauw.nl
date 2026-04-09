@@ -29,7 +29,7 @@ export default {
 <style scoped>
 .pdf-link {
   font-size: 35px;
-  color: #242424;
+  color: var(--color-text);
   padding: 0 16px;
 }
 </style>
